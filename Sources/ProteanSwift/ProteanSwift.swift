@@ -1,20 +1,20 @@
 import Foundation
 
-struct Protean
+public struct Protean
 {
-    struct Config
+    public struct Config
     {
         var byteSequenceConfig: ByteSequenceShaper.Config?
         var encryptionConfig: EncryptionShaper.Config?
         var headerConfig: HeaderShaper.Config?
     }
     
-    var config: Protean.Config
+    public var config: Protean.Config
     var byteSequenceShaper: ByteSequenceShaper?
     var encryptionShaper: EncryptionShaper?
     var headerShaper: HeaderShaper?
     
-    init(config: Protean.Config)
+    public init(config: Protean.Config)
     {
         if let byteSequenceConfig = config.byteSequenceConfig
         {
@@ -59,7 +59,7 @@ extension Protean: Transformer
      - Inject headers into packets
      - Inject packets with byte sequences
      */
-    func transform(buffer: Data) -> [Data]
+    public func transform(buffer: Data) -> [Data]
     {
         /// 🤖 -> 🚚
         var transformers = [(Data)->[Data]]()
@@ -98,7 +98,7 @@ extension Protean: Transformer
      - Discard injected headers
      - Decrypt with AES
  */
-    func restore(buffer: Data) -> [Data]
+    public func restore(buffer: Data) -> [Data]
     {
         /// 🚚 -> 🤖
         var transformers = [(Data)->[Data]]()

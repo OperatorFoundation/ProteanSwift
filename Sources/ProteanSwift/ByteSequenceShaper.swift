@@ -32,14 +32,28 @@ public class ByteSequenceShaper
         
         ///FIXME: Target packet Length.
         var length: UInt
-        
-        ///FIXME: length requirements
+        /**
+         ByteSequenceShaper creates a packet and inserts it at the given index.
+         If the length is greater than the sequence provided,
+         filler data is generated and inserted before (if offset > 0) and after the sequence
+         until the packet is the correct length.
+         - parameters:
+             - index: The index where the packet should be inserted into the overall stream
+             - offset: The offset within the packet that the sequence should be insert
+             - sequence: The specific data to insert into the packet.
+             - length: The size the new inserted packet should be.
+         */
+       
         init?(index: UInt, offset: UInt, sequence: Data, length: UInt)
         {
-            if length == 0 || length < 256
+            ///Length must be no larger than 1440 bytes
+            if length == 0 || length <= 1440
             {
                 return nil
             }
+            
+            /// Offset + Sequence count cannot be grater than the length
+            
             
             self.index = index
             self.offset = offset
@@ -198,7 +212,7 @@ extension ByteSequenceShaper: Transformer
     /// Inject header.
     public func transform(buffer: Data) -> [Data]
     {
-        var results = [Data()]
+        var results: [Data] = []
 
         // Check if the current Index into the packet stream is within the range where a packet injection could possibly occur.
         if outputIndex <= lastIndex

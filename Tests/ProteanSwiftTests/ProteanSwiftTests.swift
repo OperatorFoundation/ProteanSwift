@@ -71,7 +71,8 @@ final class ProteanSwiftTests: XCTestCase
         XCTAssertNotNil(sequenceShaper)
         
         let transformResult = sequenceShaper!.transform(buffer: testData)
-        let restoreResult = sequenceShaper!.restore(buffer: transformResult[0])
+        let restoreResult = transformResult.flatMap(sequenceShaper!.restore)
+        //let restoreResult = sequenceShaper!.restore(buffer: transformResult[0])
         
         XCTAssertNotEqual(testData.bytes, transformResult[0].bytes)
         XCTAssertEqual(testData, restoreResult[0])

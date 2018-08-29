@@ -87,9 +87,7 @@ extension Protean: Transformer
             return metaTransform(data: buffer, transforms: transformers)
         }
         
-        
         return []
-        
     }
     
 /**
@@ -130,10 +128,10 @@ extension Protean: Transformer
     }
 }
 
-func sampleProteanConfig() -> Protean.Config
+/// This is meant for development purposes only
+public func sampleProteanConfig() -> Protean.Config
 {
-    //FIXME: sampleSequenceConfig
-    return Protean.Config(byteSequenceConfig: nil,
+    return Protean.Config(byteSequenceConfig: sampleSequenceConfig(),
                           encryptionConfig: sampleEncryptionConfig(),
                           headerConfig: sampleHeaderConfig())
 }

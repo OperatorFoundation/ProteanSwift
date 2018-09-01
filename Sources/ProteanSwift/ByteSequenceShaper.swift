@@ -41,18 +41,25 @@ public class ByteSequenceShaper
              - index: The index where the packet should be inserted into the overall stream
              - offset: The offset within the packet that the sequence should be insert
              - sequence: The specific data to insert into the packet.
-             - length: The size the new inserted packet should be.
+             - length: The size the new inserted packet should be. Length must be no larger than 1440 bytes
          */
        
         init?(index: UInt, offset: UInt, sequence: Data, length: UInt)
         {
             ///Length must be no larger than 1440 bytes
-            if length == 0 || length <= 1440
+            if length == 0 || length > 1440
             {
+                print("\nByteSequenceShaper initialization failed: target length was either 0 or larger than 1440\n")
                 return nil
             }
             
             /// Offset + Sequence count cannot be grater than the length
+            guard offset + UInt(sequence.count) <= length
+            else
+            {
+                print("\nByteSequenceShaper initialization failed: Offset + sequence count is greater than the target length provided.\n")
+                return nil
+            }
             
             
             self.index = index

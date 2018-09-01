@@ -36,16 +36,16 @@ public struct Protean
     
     func metaTransform(data: Data, transforms: [(Data)->[Data]]) -> [Data]
     {
-        var result = [data]
+        var buffer = [data]
 
         transforms.forEach
         {
             (transform) in
             
-            result = result.flatMap(transform)
+            buffer = buffer.flatMap(transform)
         }
 
-        return result
+        return buffer
     }
     
     

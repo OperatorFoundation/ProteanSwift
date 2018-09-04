@@ -107,8 +107,8 @@ final class ProteanSwiftTests: XCTestCase
     //Offsets is 0, sequence is at index > 0
     func testOneSequenceNoOffsetNotFirst()
     {
-        guard let sequenceModel1 = ByteSequenceShaper.SequenceModel(index: 3,
-                                                                    offset: 3,
+        guard let sequenceModel1 = ByteSequenceShaper.SequenceModel(index: 1,
+                                                                    offset: 0,
                                                                     sequence: sequence1,
                                                                     length: 256)
             else
@@ -129,14 +129,16 @@ final class ProteanSwiftTests: XCTestCase
         let transformResult = sequenceShaper.transform(buffer: testData)
         let restoreResult = transformResult.flatMap(sequenceShaper.restore)
         
-        XCTAssertNotEqual(testData.bytes, transformResult[0].bytes)
+        XCTAssert(transformResult.count == 2)
+        XCTAssertNotEqual(testData.bytes, transformResult[1].bytes)
+        XCTAssertEqual(testData.bytes, transformResult[0].bytes)
         XCTAssertEqual(testData, restoreResult[0])
     }
     
     //Offsets is > 0, sequence is at index > 0
     func testOneSequenceOffsetNotFirst()
     {
-        guard let sequenceModel1 = ByteSequenceShaper.SequenceModel(index: 20,
+        guard let sequenceModel1 = ByteSequenceShaper.SequenceModel(index: 1,
                                                                     offset: 2,
                                                                     sequence: sequence1,
                                                                     length: 256)
@@ -158,7 +160,9 @@ final class ProteanSwiftTests: XCTestCase
         let transformResult = sequenceShaper.transform(buffer: testData)
         let restoreResult = transformResult.flatMap(sequenceShaper.restore)
         
-        XCTAssertNotEqual(testData.bytes, transformResult[0].bytes)
+        XCTAssert(transformResult.count == 2)
+        XCTAssertEqual(testData.bytes, transformResult[0].bytes)
+        XCTAssertNotEqual(testData.bytes, transformResult[1].bytes)
         XCTAssertEqual(testData, restoreResult[0])
     }
     
@@ -284,26 +288,39 @@ final class ProteanSwiftTests: XCTestCase
         XCTAssertEqual(testData, restoreResult[0])
     }
     
-    func testOneSequenceNoOffset()
+    func testOneSequenceHighIndex()
     {
-        let testData = Data(bytes: [12, 1, 42, 17, 88, 75, 1, 1, 1, 0])
-        
-        guard let sampleSeqConfig = sampleSequenceConfig()
+        guard let sequenceModel1 = ByteSequenceShaper.SequenceModel(index: 3,
+                                                                    offset: 0,
+                                                                    sequence: sequence1,
+                                                                    length: 256)
         else
         {
             XCTFail()
             return
         }
         
-        let sequenceShaper = ByteSequenceShaper(config: sampleSeqConfig)
+        let config = ByteSequenceShaper.Config(addSequences: [sequenceModel1], removeSequences: [sequenceModel1])
         
-        XCTAssertNotNil(sequenceShaper)
+        guard let sequenceShaper = ByteSequenceShaper(config: config)
+            else
+        {
+            XCTFail()
+            return
+        }
         
-        let transformResult = sequenceShaper!.transform(buffer: testData)
-        let restoreResult = transformResult.flatMap(sequenceShaper!.restore)
+        let transformResult1 = sequenceShaper.transform(buffer: testData)
+        let transformResult2 = sequenceShaper.transform(buffer: sequence1)
+        let transformResult3 = sequenceShaper.transform(buffer: sequence2)
         
-        XCTAssertNotEqual(testData.bytes, transformResult[0].bytes)
-        XCTAssertEqual(testData, restoreResult[0])
+        let restoreResult1 = transformResult1.flatMap(sequenceShaper.restore)
+        let restoreResult2 = transformResult2.flatMap(sequenceShaper.restore)
+        let restoreResult3 = transformResult3.flatMap(sequenceShaper.restore)
+        
+        XCTAssert(transformResult3.count == 2)
+        XCTAssertNotEqual(sequence2.bytes, transformResult3[1].bytes)
+        XCTAssertEqual(sequence2.bytes, transformResult3[0].bytes)
+        XCTAssertEqual(sequence2, restoreResult3[0])
     }
     
     func testProtean()

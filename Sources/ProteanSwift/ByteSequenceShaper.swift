@@ -120,6 +120,8 @@ public class ByteSequenceShaper
             return nil
         }
         
+        ///TODO: Check to make sure that add sequences do not have the same indices, do the same for remove sequences
+        
         self.config = config
         self.firstIndex = firstSequence.index
         self.lastIndex = lastSequence.index
@@ -225,7 +227,7 @@ extension ByteSequenceShaper: Transformer
         if outputIndex <= lastIndex
         {
             // Injection has not finished, but may not have started yet.
-            if outputIndex >= firstIndex
+            if outputIndex >= firstIndex - 1
             {
                 // Injection has started and has not finished, so check to see if it is time to inject a packet.
                 // Inject fake packets before the real packet

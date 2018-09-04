@@ -7,6 +7,13 @@ public struct Protean
         var byteSequenceConfig: ByteSequenceShaper.Config?
         var encryptionConfig: EncryptionShaper.Config?
         var headerConfig: HeaderShaper.Config?
+        
+        public init(byteSequenceConfig: ByteSequenceShaper.Config?, encryptionConfig: EncryptionShaper.Config?, headerConfig: HeaderShaper.Config?)
+        {
+            self.byteSequenceConfig = byteSequenceConfig
+            self.encryptionConfig = encryptionConfig
+            self.headerConfig = headerConfig
+        }
     }
     
     public var config: Protean.Config

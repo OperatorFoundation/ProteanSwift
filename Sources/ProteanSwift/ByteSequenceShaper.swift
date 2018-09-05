@@ -120,7 +120,24 @@ public class ByteSequenceShaper
             return nil
         }
         
-        ///TODO: Check to make sure that add sequences do not have the same indices, do the same for remove sequences
+        // Check to make sure that add sequences do not have the same indices, do the same for remove sequences
+        let addSeqGroupedByIndex = Dictionary(grouping: config.addSequences) { $0.index }
+        for index in addSeqGroupedByIndex
+        {
+            if index.value.count > 1
+            {
+                return nil
+            }
+        }
+        
+        let removeSeqGroupedByIndex = Dictionary(grouping: config.removeSequences) { $0.index }
+        for index in removeSeqGroupedByIndex
+        {
+            if index.value.count > 1
+            {
+                return nil
+            }
+        }
         
         self.config = config
         self.firstIndex = firstSequence.index
@@ -227,7 +244,7 @@ extension ByteSequenceShaper: Transformer
         if outputIndex <= lastIndex
         {
             // Injection has not finished, but may not have started yet.
-            if outputIndex >= firstIndex - 1
+            if Int(outputIndex) >= Int(firstIndex) - 1
             {
                 // Injection has started and has not finished, so check to see if it is time to inject a packet.
                 // Inject fake packets before the real packet

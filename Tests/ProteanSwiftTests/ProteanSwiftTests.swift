@@ -46,6 +46,31 @@ final class ProteanSwiftTests: XCTestCase
     let sequence2 = Data(string: "You say hello, and I say goodbye.")
     let testData = Data(string: "I don't know why you say 'Goodbye', I say 'Hello'.")
     
+    func testFindMatchingPacket()
+    {
+        guard let sequenceModel1 = ByteSequenceShaper.SequenceModel(index: 0,
+                                                                    offset: 0,
+                                                                    sequence: sequence1,
+                                                                    length: 256)
+            else
+        {
+            XCTFail()
+            return
+        }
+        
+        let config = ByteSequenceShaper.Config(addSequences: [sequenceModel1], removeSequences: [sequenceModel1])
+        
+        guard let sequenceShaper = ByteSequenceShaper(config: config)
+            else
+        {
+            XCTFail()
+            return
+        }
+
+        XCTAssertFalse(sequenceShaper.findMatchingPacket(sequence: Data(string: "W?")))
+        XCTAssertTrue(sequenceShaper.findMatchingPacket(sequence: sequence1))
+    }
+    
     //Offsets is 0, sequence is at index 0
     func testOneSequenceNoOffsetFirst()
     {

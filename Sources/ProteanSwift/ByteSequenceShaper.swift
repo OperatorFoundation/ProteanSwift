@@ -175,14 +175,18 @@ public class ByteSequenceShaper
             let sequenceModel = config.removeSequences[index]
             let index1 = Int(sequenceModel.offset)
             let index2 = index1 + sequenceModel.sequence.count
-            let source = Data(sequence[index1 ..< index2])
             
-            if source.bytes == sequenceModel.sequence.bytes
+            if sequence.count >= index2
             {
-                //Remove matched packet so that it's not matched again
-                config.removeSequences.remove(at: index)
+                let source = Data(sequence[index1 ..< index2])
                 
-                return true
+                if source.bytes == sequenceModel.sequence.bytes
+                {
+                    //Remove matched packet so that it's not matched again
+                    config.removeSequences.remove(at: index)
+                    
+                    return true
+                }
             }
         }
         

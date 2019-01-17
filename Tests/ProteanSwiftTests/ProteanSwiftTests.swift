@@ -96,6 +96,10 @@ final class ProteanSwiftTests: XCTestCase
         let transformResult = sequenceShaper.transform(buffer: testData)
         let restoreResult = transformResult.flatMap(sequenceShaper.restore)
         
+        print("\nBuffer to transform: \n \(testData)\n")
+        print("\nTransform Result: \n \(transformResult)\n")
+        print("\nRestore Result: \n \(restoreResult)\n")
+        
         XCTAssertNotEqual(testData.bytes, transformResult[0].bytes)
         XCTAssertEqual(testData, restoreResult[0])
     }

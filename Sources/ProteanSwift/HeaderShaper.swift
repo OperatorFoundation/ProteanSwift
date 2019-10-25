@@ -19,6 +19,12 @@ public struct HeaderShaper
         
         /// Header that should be removed from each incoming packet.
         var removHeader: Data?
+        
+        public init(addHeader: Data?, removeHeader: Data?)
+        {
+            self.addHeader = addHeader
+            self.removHeader = removeHeader
+        }
     }
     
     public var config: HeaderShaper.Config
@@ -88,7 +94,7 @@ public func sampleHeaderConfig() -> HeaderShaper.Config
 {
     // Creates a sample (non-random) config, suitable for testing.
     let header = Data(bytes: [139, 210, 37])
-    let config = HeaderShaper.Config(addHeader: header, removHeader: header)
+    let config = HeaderShaper.Config(addHeader: header, removeHeader: header)
     
     return config
 }

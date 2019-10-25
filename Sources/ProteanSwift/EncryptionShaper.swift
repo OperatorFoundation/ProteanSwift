@@ -18,10 +18,15 @@ public struct EncryptionShaper
     {
         ///AES-256: needs to be 32 bytes
         var key: Data
+        
+        public init(key: Data)
+        {
+            self.key = key
+        }
     }
     
     var iv = Data(count: AES.blockSize)
-    var config: EncryptionShaper.Config
+    public var config: EncryptionShaper.Config
     
     /// Required to create EncryptionSHaper instance
     /// - parameter key: AES-256, needs to be 32 bytes

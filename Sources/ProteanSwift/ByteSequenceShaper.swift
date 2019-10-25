@@ -44,7 +44,7 @@ public class ByteSequenceShaper
              - length: The size the new inserted packet should be. Length must be no larger than 1440 bytes
          */
        
-        init?(index: UInt, offset: UInt, sequence: Data, length: UInt)
+        public init?(index: UInt, offset: UInt, sequence: Data, length: UInt)
         {
             ///Length must be no larger than 1440 bytes
             if length == 0 || length > 1440
@@ -82,6 +82,12 @@ public class ByteSequenceShaper
         
         /// Sequences that should be removed from the incoming packet stream.
         var removeSequences: [SequenceModel]
+        
+        public init(addSequences: [SequenceModel], removeSequences: [SequenceModel])
+        {
+            self.addSequences = addSequences
+            self.removeSequences = removeSequences
+        }
     }
     
     var config: ByteSequenceShaper.Config

@@ -13,7 +13,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/OperatorFoundation/Datable.git", from: "1.0.1"),
+        .package(url: "https://github.com/OperatorFoundation/Datable.git", from: "2.0.1"),
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.0.0"),
     ],
     targets: [

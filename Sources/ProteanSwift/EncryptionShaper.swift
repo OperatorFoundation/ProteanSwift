@@ -48,7 +48,7 @@ public struct EncryptionShaper
             let aes = try AES(key: config.key.bytes, blockMode: ctr, padding: .noPadding)
             let encrypted = try aes.encrypt(buffer.bytes)
             
-            return Data(bytes: encrypted)
+            return Data(encrypted)
         }
         catch(let error)
         {
@@ -65,7 +65,7 @@ public struct EncryptionShaper
             let ctr = CTR(iv: iv.bytes)
             let aes = try AES(key: config.key.bytes, blockMode: ctr, padding: .noPadding)
             let decrypted = try aes.decrypt(cipherText.bytes)
-            return Data(bytes: decrypted)
+            return Data(decrypted)
         }
         catch
         {

@@ -211,7 +211,7 @@ public class ByteSequenceShaper
             let status = SecRandomCopyBytes(kSecRandomDefault, Int(model.offset), &randomBytes)
             if status == errSecSuccess
             {
-                result.append(Data(bytes: randomBytes))
+                result.append(Data(randomBytes))
             }
             else
             {
@@ -231,7 +231,7 @@ public class ByteSequenceShaper
             let status = SecRandomCopyBytes(kSecRandomDefault, length, &randomBytes)
             if status == errSecSuccess
             {
-                result.append(Data(bytes: randomBytes))
+                result.append(Data(randomBytes))
             }
             else
             {

@@ -93,7 +93,7 @@ extension HeaderShaper: Transformer
 public func sampleHeaderConfig() -> HeaderShaper.Config
 {
     // Creates a sample (non-random) config, suitable for testing.
-    let header = Data(bytes: [139, 210, 37])
+    let header = Data([139, 210, 37])
     let config = HeaderShaper.Config(addHeader: header, removeHeader: header)
     
     return config

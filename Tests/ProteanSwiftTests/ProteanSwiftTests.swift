@@ -7,7 +7,7 @@ final class ProteanSwiftTests: XCTestCase
 {
     func testHeaderTransform()
     {
-        let testData = Data(bytes: [12, 1, 42, 17])
+        let testData = Data([12, 1, 42, 17])
         guard let headerShaper = HeaderShaper(config: sampleHeaderConfig())
         else
         {
@@ -24,7 +24,7 @@ final class ProteanSwiftTests: XCTestCase
     
     func testEncryptionShaper()
     {
-        let testData = Data(bytes: [12, 1, 42, 17, 88, 75, 1, 1, 1, 0])
+        let testData = Data([12, 1, 42, 17, 88, 75, 1, 1, 1, 0])
         let encryptionShaper = EncryptionShaper(config: sampleEncryptionConfig())
         
         XCTAssertNotNil(encryptionShaper)

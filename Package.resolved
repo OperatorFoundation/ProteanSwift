@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "3a2acbb32ab68215ee1596ee6004da8e90c3721b",
-          "version": "1.0.0"
+          "revision": "4b0565384d3c4c588af09e660535b2c7c9bf5b39",
+          "version": "1.4.2"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/OperatorFoundation/Datable.git",
         "state": {
           "branch": null,
-          "revision": "1c23f2b72d0d0cf4386fad05f8a5db4b91e8d304",
-          "version": "3.0.2"
+          "revision": "f935c18f2527f1b3cb6cad2511758b54effac5b1",
+          "version": "3.1.2"
         }
       }
     ]
